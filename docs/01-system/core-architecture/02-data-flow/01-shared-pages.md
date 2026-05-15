@@ -1,4 +1,4 @@
-# Halaman Autentikasi
+# Halaman Bersama (Shared / Auth / Profil)
 
 ### 1. Halaman: **Register**
 - **Tujuan Halaman**: Memfasilitasi pendaftaran pengguna baru (UMKM atau Kreator).
@@ -28,3 +28,12 @@
   - `email` (String)
   - `password` (String)
 - **Kebutuhan Autentikasi**: Tidak ada (Halaman Publik)
+
+### 3. Halaman: **Profil & Edit Profil**
+- **Tujuan Halaman**: Memperbarui informasi biodata, identitas bisnis, dan kredensial akun.
+- **Koleksi Terkait**: `users`
+- **Operasi CRUD**: `READ`, `UPDATE`
+- **Data yang Dibaca**: Data `users` saat ini.
+- **Data yang Diubah**: Dokumen `users` saat update profile.
+- **Input Pengguna**: Form Identitas Dasar, Avatar Editor, System Logout.
+- **Kebutuhan Autentikasi**: Ya

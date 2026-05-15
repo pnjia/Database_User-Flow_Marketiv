@@ -46,3 +46,14 @@
   - `estimasi_hari` (Int)
 - **Kebutuhan Autentikasi**: Ya (Role: KREATOR).
 - **Keterangan Tambahan**: Validasi pengecekan > 3 dokumen dicegat di level state Controller Flutter.
+
+### 5. Halaman: **Keuangan / Penarikan Dana (Kreator)**
+- **Tujuan Halaman**: Melacak histori aliran dana dan withdraw.
+- **Koleksi Terkait**: `transactions`, `users`.
+- **Operasi CRUD**: `READ` (Koleksi), `CREATE` (via Server Function)
+- **Data yang Dibaca**: Nilai `dompet_saldo` dari `users` dan array `transactions` historis.
+- **Data yang Dibuat**: Transaksi *Withdrawal*. Modifikasi ini dipicu oleh `withdraw-fn`.
+- **Input Pengguna**:
+  - Angka nominal penarikan (Int/Float).
+  - Form bank tujuan untuk withdraw.
+- **Kebutuhan Autentikasi**: Ya (Role: KREATOR).

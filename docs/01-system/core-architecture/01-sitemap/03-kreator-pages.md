@@ -11,11 +11,9 @@ Hierarki Utama (Bottom Navigation): Beranda | Job Pool | Pekerjaan | Saldo | Pro
 | **Pekerjaan Aktif** | Melacak campaign yang sedang dikerjakan kreator. | Pilih pekerjaan yang belum selesai |
 | **Submit Bukti Tayang** | Menyerahkan hasil kerja (URL) untuk Campaign Mode. | Input URL TikTok/IG, submit bukti |
 
-## 2. Negosiasi & Keuangan (Rate Card Mode)
+## 2. Keuangan
 | Halaman | Tujuan | Aksi Utama Pengguna |
 |---|---|---|
-| **Daftar Negosiasi** | Melacak pesanan masuk (Custom Offer). | Klik room nego |
-| **Chat Room** | Diskusi realtime dengan UMKM. | Balas chat, terima/tolak *Custom Offer*, kirim link hasil kerja |
 | **Keuangan** | Manajemen saldo dompet dan penarikan (withdrawal). | Lihat saldo, isi form bank, klik "Tarik Dana" |
 
 ## 3. Profil & Rate Card

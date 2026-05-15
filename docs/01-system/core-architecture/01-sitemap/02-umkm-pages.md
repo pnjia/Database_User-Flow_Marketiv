@@ -15,8 +15,6 @@ Hierarki Utama (Bottom Navigation): Beranda | Kampanye | Kreator | Keuangan | Pr
 |---|---|---|
 | **Direktori Kreator** | Mencari kreator untuk proyek fixed-price. | Mencari (search), filter niche/harga, klik profil |
 | **Profil Kreator** | Melihat portofolio dan Rate Card kreator. | Melihat detail paket, klik "Hubungi Kreator" |
-| **Daftar Negosiasi** | Menampilkan riwayat order Rate Card. | Memilih room chat order yang sedang aktif |
-| **Chat Room** | Berkomunikasi realtime dengan kreator (Rate Card Mode). | Kirim pesan teks, kirim **Custom Offer**, setujui pekerjaan selesai |
 
 ## 3. Keuangan & Profil
 | Halaman | Tujuan | Aksi Utama Pengguna |

@@ -39,3 +39,13 @@
 - **Operasi CRUD**: `READ`
 - **Data yang Dibaca**: Seluruh profil `users` dengan peran Kreator, serta *nested query* logis ke dokumen `rate_cards` yang terkait dan berstatus `is_active` = `true`.
 - **Kebutuhan Autentikasi**: Ya (Role: UMKM).
+
+### 5. Halaman: **Keuangan / Deposit (UMKM)**
+- **Tujuan Halaman**: Melacak histori aliran dana dan top-up (deposit).
+- **Koleksi Terkait**: `transactions`, `users`.
+- **Operasi CRUD**: `READ` (Koleksi), `CREATE` (via Server Function)
+- **Data yang Dibaca**: Nilai `dompet_saldo` dari `users` dan array `transactions` historis.
+- **Data yang Dibuat**: Transaksi *Deposit*. Modifikasi ini dipicu oleh `midtrans-create-fn`.
+- **Input Pengguna**:
+  - Angka nominal deposit (Int/Float).
+- **Kebutuhan Autentikasi**: Ya (Role: UMKM).
