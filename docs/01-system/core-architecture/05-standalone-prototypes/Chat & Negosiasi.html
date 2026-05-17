@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Wireframe: Chat & Negosiasi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .bubble-left { border-bottom-left-radius: 4px; }
+        .bubble-right { border-bottom-right-radius: 4px; }
+        .slide-up { animation: slideUp 0.3s ease-out forwards; }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.2s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .scale-in { animation: scaleIn 0.2s ease-out forwards; }
+        @keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+    <!-- Device Frame -->
+    <div class="relative w-full max-w-[390px] h-[844px] bg-white rounded-[40px] shadow-2xl overflow-hidden border-8 border-gray-900 ring-1 ring-gray-300">
+        
+        <!-- Status Bar -->
+        <div class="h-12 bg-white flex items-center justify-between px-6 pt-2 z-50 relative">
+            <span class="text-sm font-semibold text-gray-900" id="clock">09:41</span>
+            <div class="flex gap-1.5">
+                <svg class="w-4 h-4 text-gray-900" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                <svg class="w-4 h-4 text-gray-900" fill="currentColor" viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
+                <svg class="w-5 h-3 text-gray-900" fill="currentColor" viewBox="0 0 24 24"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg>
+            </div>
+        </div>
+
+        <!-- Screen 1: Daftar Negosiasi (Inbox) -->
+        <div id="screen-inbox" class="absolute inset-0 top-12 bottom-0 flex flex-col bg-gray-50 transition-transform duration-300">
+            <!-- Header -->
+            <div class="bg-white px-4 py-3 border-b border-gray-100 flex items-center justify-between sticky top-0 z-10">
+                <h1 class="text-lg font-bold text-gray-900">Pesan</h1>
+                <button class="p-2 rounded-full hover:bg-gray-100">
+                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                </button>
+            </div>
+
+            <!-- Tabs -->
+            <div class="bg-white px-4 pb-2 flex gap-4 border-b border-gray-100">
+                <button onclick="switchTab('aktif')" id="tab-aktif" class="pb-2 text-sm font-semibold text-blue-600 border-b-2 border-blue-600 transition-colors">Aktif</button>
+                <button onclick="switchTab('selesai')" id="tab-selesai" class="pb-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 transition-colors">Selesai</button>
+            </div>
+
+            <!-- Chat List -->
+            <div class="flex-1 overflow-y-auto hide-scrollbar" id="chat-list">
+                <!-- Chat Item 1 -->
+                <div onclick="openChat('kreator1')" class="bg-white px-4 py-3 flex gap-3 border-b border-gray-50 active:bg-gray-50 cursor-pointer hover:bg-gray-50 transition-colors">
+                    <div class="relative flex-shrink-0">
+                        <img src="https://ui-avatars.com/api/?name=Sarah+Design&background=6366f1&color=fff" class="w-12 h-12 rounded-full object-cover" alt="Profile">
+                        <div class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full"></div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex justify-between items-start mb-0.5">
+                            <h3 class="font-semibold text-gray-900 text-sm truncate">Sarah Design Studio</h3>
+                            <span class="text-xs text-gray-400 flex-shrink-0 ml-2">10:30</span>
+                        </div>
+                        <p class="text-sm text-gray-600 truncate">Saya bisa mengerjakan video promonya dalam 3 hari...</p>
+                        <div class="mt-1.5 flex items-center gap-2">
+                            <span class="px-2 py-0.5 bg-amber-100 text-amber-700 text-[10px] font-semibold rounded-full">Negosiasi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Item 2 -->
+                <div onclick="openChat('kreator2')" class="bg-white px-4 py-3 flex gap-3 border-b border-gray-50 active:bg-gray-50 cursor-pointer hover:bg-gray-50 transition-colors">
+                    <div class="relative flex-shrink-0">
+                        <img src="https://ui-avatars.com/api/?name=Budi+Visual&background=10b981&color=fff" class="w-12 h-12 rounded-full object-cover" alt="Profile">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex justify-between items-start mb-0.5">
+                            <h3 class="font-semibold text-gray-900 text-sm truncate">Budi Visual</h3>
+                            <span class="text-xs text-gray-400 flex-shrink-0 ml-2">Kemarin</span>
+                        </div>
+                        <p class="text-sm text-gray-600 truncate">Bukti hasil kerja sudah saya kirim, silakan dicek</p>
+                        <div class="mt-1.5 flex items-center gap-2">
+                            <span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-semibold rounded-full">Menunggu Review</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Item 3 -->
+                <div onclick="openChat('kreator3')" class="bg-white px-4 py-3 flex gap-3 border-b border-gray-50 active:bg-gray-50 cursor-pointer hover:bg-gray-50 transition-colors">
+                    <div class="relative flex-shrink-0">
+                        <img src="https://ui-avatars.com/api/?name=Andi+Motion&background=f59e0b&color=fff" class="w-12 h-12 rounded-full object-cover" alt="Profile">
+                        <div class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full"></div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex justify-between items-start mb-0.5">
+                            <h3 class="font-semibold text-gray-900 text-sm truncate">Andi Motion</h3>
+                            <span class="text-xs text-gray-400 flex-shrink-0 ml-2">Kemarin</span>
+                        </div>
+                        <p class="text-sm text-gray-600 truncate">Baik, saya terima tawarannya. Mohon dibayarkan...</p>
+                        <div class="mt-1.5 flex items-center gap-2">
+                            <span class="px-2 py-0.5 bg-purple-100 text-purple-700 text-[10px] font-semibold rounded-full">Escrow</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Item 4 (Selesai - hidden by default) -->
+                <div class="selesai-item hidden bg-white px-4 py-3 flex gap-3 border-b border-gray-50 active:bg-gray-50 cursor-pointer hover:bg-gray-50 transition-colors">
+                    <div class="relative flex-shrink-0">
+                        <img src="https://ui-avatars.com/api/?name=Rina+Edit&background=ec4899&color=fff" class="w-12 h-12 rounded-full object-cover" alt="Profile">
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex justify-between items-start mb-0.5">
+                            <h3 class="font-semibold text-gray-900 text-sm truncate">Rina Edit Pro</h3>
+                            <span class="text-xs text-gray-400 flex-shrink-0 ml-2">2 hari lalu</span>
+                        </div>
+                        <p class="text-sm text-gray-600 truncate">Terima kasih atas kerjasamanya!</p>
+                        <div class="mt-1.5 flex items-center gap-2">
+                            <span class="px-2 py-0.5 bg-gray-100 text-gray-600 text-[10px] font-semibold rounded-full">Selesai</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Nav -->
+            <div class="bg-white border-t border-gray-200 px-6 py-3 flex justify-between items-center">
+                <button class="flex flex-col items-center gap-1 text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    <span class="text-[10px]">Beranda</span>
+                </button>
+                <button class="flex flex-col items-center gap-1 text-blue-600">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+                    <span class="text-[10px] font-medium">Pesan</span>
+                </button>
+                <button class="flex flex-col items-center gap-1 text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                    <span class="text-[10px]">Profil</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Screen 2: Chat Room -->
+        <div id="screen-chat" class="absolute inset-0 top-12 bottom-0 flex flex-col bg-gray-50 translate-x-full transition-transform duration-300">
+            <!-- Header -->
+            <div class="bg-white px-3 py-2 border-b border-gray-100 flex items-center gap-3 shadow-sm z-20">
+                <button onclick="backToInbox()" class="p-1.5 -ml-1 rounded-full hover:bg-gray-100 active:bg-gray-200 transition-colors">
+                    <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+                <img src="https://ui-avatars.com/api/?name=Sarah+Design&background=6366f1&color=fff" class="w-9 h-9 rounded-full object-cover" id="chat-avatar" alt="Profile">
+                <div class="flex-1 min-w-0">
+                    <h2 class="font-semibold text-sm text-gray-900 truncate" id="chat-name">Sarah Design Studio</h2>
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-xs text-gray-500">Status:</span>
+                        <span class="text-xs font-medium text-amber-600" id="chat-status">Negosiasi</span>
+                    </div>
+                </div>
+                <button class="p-1.5 rounded-full hover:bg-gray-100">
+                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/></svg>
+                </button>
+            </div>
+
+            <!-- Messages Area -->
+            <div class="flex-1 overflow-y-auto hide-scrollbar p-4 space-y-4" id="messages-container">
+                <!-- System Bubble -->
+                <div class="flex justify-center">
+                    <span class="px-3 py-1.5 bg-gray-200 text-gray-600 text-xs rounded-full">Hari ini</span>
+                </div>
+
+                <!-- Left Bubble -->
+                <div class="flex gap-2 max-w-[85%]">
+                    <img src="https://ui-avatars.com/api/?name=Sarah+Design&background=6366f1&color=fff" class="w-7 h-7 rounded-full self-end flex-shrink-0" alt="Avatar">
+                    <div class="bg-white p-3 rounded-2xl rounded-bl-none bubble-left shadow-sm border border-gray-100">
+                        <p class="text-sm text-gray-800 leading-relaxed">Halo! Saya tertarik dengan tawaran rate card Anda. Apakah bisa diskusi untuk video promosi produk UMKM saya?</p>
+                        <span class="text-[10px] text-gray-400 mt-1 block">10:25</span>
+                    </div>
+                </div>
+
+                <!-- Right Bubble -->
+                <div class="flex justify-end">
+                    <div class="bg-blue-600 p-3 rounded-2xl rounded-br-none bubble-right shadow-sm max-w-[85%]">
+                        <p class="text-sm text-white leading-relaxed">Halo! Tentu saja, saya siap membantu. Bisa ceritakan detail kebutuhannya?</p>
+                        <div class="flex items-center justify-end gap-1 mt-1">
+                            <span class="text-[10px] text-blue-200">10:28</span>
+                            <svg class="w-3 h-3 text-blue-200" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Offer Widget (From UMKM) -->
+                <div class="flex gap-2 max-w-[90%]">
+                    <img src="https://ui-avatars.com/api/?name=Sarah+Design&background=6366f1&color=fff" class="w-7 h-7 rounded-full self-end flex-shrink-0" alt="Avatar">
+                    <div class="w-full">
+                        <div class="bg-white rounded-2xl rounded-bl-none shadow-md border border-gray-200 overflow-hidden">
+                            <div class="bg-amber-50 px-4 py-2 border-b border-amber-100 flex items-center gap-2">
+                                <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <span class="text-xs font-bold text-amber-800 uppercase tracking-wider">Penawaran Khusus</span>
+                            </div>
+                            <div class="p-4 space-y-3">
+                                <div>
+                                    <p class="text-[10px] text-gray-500 uppercase font-semibold tracking-wider mb-1">Judul Pekerjaan</p>
+                                    <p class="text-sm font-semibold text-gray-900">Video Promosi Produk Kopi Lokal</p>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] text-gray-500 uppercase font-semibold tracking-wider mb-1">Scope Pekerjaan</p>
+                                    <p class="text-sm text-gray-700">1 video reels 30-60 detik dengan konsep storytelling brand</p>
+                                </div>
+                                <div class="flex items-baseline gap-1 pt-1">
+                                    <span class="text-xs text-gray-500">Harga:</span>
+                                    <span class="text-lg font-bold text-gray-900">Rp 1.500.000</span>
+                                </div>
+                                <div class="flex gap-2 pt-2 border-t border-gray-100" id="offer-actions">
+                                    <button onclick="handleOffer('reject')" class="flex-1 py-2 px-3 border border-red-200 text-red-600 rounded-lg text-xs font-semibold hover:bg-red-50 active:bg-red-100 transition-colors">Tolak</button>
+                                    <button onclick="handleOffer('accept')" class="flex-1 py-2 px-3 bg-green-600 text-white rounded-lg text-xs font-semibold hover:bg-green-700 active:bg-green-800 transition-colors shadow-sm">Terima Tawaran</button>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="text-[10px] text-gray-400 mt-1 block ml-1">10:30</span>
+                    </div>
+                </div>
+
+                <!-- System Notification -->
+                <div class="flex justify-center my-2">
+                    <div class="bg-gray-100 px-4 py-2 rounded-lg max-w-[90%] text-center">
+                        <p class="text-xs text-gray-600">Anda menerima tawaran. Pesanan telah dibayar oleh UMKM dan masuk ke escrow.</p>
+                    </div>
+                </div>
+
+                <!-- Proof Widget (From Creator) - Initially Hidden -->
+                <div id="proof-widget" class="hidden flex gap-2 max-w-[90%] flex-row-reverse">
+                    <img src="https://ui-avatars.com/api/?name=You&background=3b82f6&color=fff" class="w-7 h-7 rounded-full self-end flex-shrink-0" alt="Avatar">
+                    <div class="w-full">
+                        <div class="bg-white rounded-2xl rounded-br-none shadow-md border border-gray-200 overflow-hidden">
+                            <div class="bg-blue-50 px-4 py-2 border-b border-blue-100 flex items-center gap-2">
+                                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <span class="text-xs font-bold text-blue-800 uppercase tracking-wider">Bukti Hasil Kerja</span>
+                            </div>
+                            <div class="p-4 space-y-3">
+                                <div class="bg-gray-50 rounded-lg p-3 flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-sm font-medium text-gray-900 truncate">video-promosi-kopi.mp4</p>
+                                        <p class="text-xs text-gray-500">drive.google.com/...</p>
+                                    </div>
+                                </div>
+                                <a href="#" class="block text-center text-xs text-blue-600 font-medium hover:underline">Lihat Hasil Kerja</a>
+                                <div class="flex gap-2 pt-2 border-t border-gray-100" id="proof-actions">
+                                    <button onclick="handleProof('revision')" class="flex-1 py-2 px-3 border border-amber-200 text-amber-600 rounded-lg text-xs font-semibold hover:bg-amber-50 active:bg-amber-100 transition-colors">Minta Revisi</button>
+                                    <button onclick="handleProof('complete')" class="flex-1 py-2 px-3 bg-blue-600 text-white rounded-lg text-xs font-semibold hover:bg-blue-700 active:bg-blue-800 transition-colors shadow-sm">Pesanan Selesai</button>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="text-[10px] text-gray-400 mt-1 block text-right mr-1">14:15</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Bar -->
+            <div class="bg-white border-t border-gray-200 p-3 pb-5 z-20">
+                <!-- Action Menu (Contextual) -->
+                <div id="action-menu" class="flex gap-2 mb-2 px-1">
+                    <button onclick="showOfferForm()" class="flex items-center gap-1.5 px-3 py-1.5 bg-amber-100 text-amber-700 rounded-full text-xs font-semibold hover:bg-amber-200 transition-colors active:scale-95 transform">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        Kirim Penawaran
+                    </button>
+                    <button onclick="showProofForm()" class="flex items-center gap-1.5 px-3 py-1.5 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold hover:bg-blue-200 transition-colors active:scale-95 transform">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        Kirim Hasil Kerja
+                    </button>
+                </div>
+
+                <div class="flex items-end gap-2">
+                    <button class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors flex-shrink-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+                    </button>
+                    <div class="flex-1 bg-gray-100 rounded-2xl flex items-end px-3 py-2 max-h-32">
+                        <textarea id="message-input" rows="1" placeholder="Ketik pesan..." class="w-full bg-transparent text-sm text-gray-900 placeholder-gray-500 resize-none outline-none max-h-28" oninput="autoResize(this)"></textarea>
+                    </div>
+                    <button onclick="sendMessage()" class="p-2.5 bg-blue-600 text-white rounded-full hover:bg-blue-700 active:bg-blue-800 transition-colors shadow-sm flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed" id="send-btn">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal: Custom Offer Form -->
+            <div id="modal-offer" class="hidden absolute inset-0 z-50 flex items-end bg-black/50 backdrop-blur-sm">
+                <div class="bg-white w-full rounded-t-3xl p-5 slide-up max-h-[85%] overflow-y-auto">
+                    <div class="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mb-4"></div>
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-bold text-gray-900">Kirim Penawaran</h3>
+                        <button onclick="closeModal('modal-offer')" class="p-1 rounded-full hover:bg-gray-100">
+                            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        </button>
+                    </div>
+                    <form onsubmit="submitOffer(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1 uppercase tracking-wider">Judul Pekerjaan</label>
+                            <input type="text" required class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder="Contoh: Video Review Produk">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1 uppercase tracking-wider">Scope Pekerjaan</label>
+                            <textarea required rows="3" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent resize-none" placeholder="Jelaskan detail pekerjaan..."></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1 uppercase tracking-wider">Harga Penawaran (Rp)</label>
+                            <input type="number" required class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent" placeholder="1.500.000">
+                        </div>
+                        <button type="submit" class="w-full py-3 bg-amber-600 text-white rounded-xl font-semibold text-sm hover:bg-amber-700 active:bg-amber-800 transition-colors shadow-sm mt-2">Kirim Penawaran</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Modal: Proof Form -->
+            <div id="modal-proof" class="hidden absolute inset-0 z-50 flex items-end bg-black/50 backdrop-blur-sm">
+                <div class="bg-white w-full rounded-t-3xl p-5 slide-up">
+                    <div class="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mb-4"></div>
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-bold text-gray-900">Kirim Hasil Kerja</h3>
+                        <button onclick="closeModal('modal-proof')" class="p-1 rounded-full hover:bg-gray-100">
+                            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        </button>
+                    </div>
+                    <form onsubmit="submitProof(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1 uppercase tracking-wider">URL Hasil Video</label>
+                            <input type="url" required class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="https://drive.google.com/...">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-1 uppercase tracking-wider">Catatan (Opsional)</label>
+                            <textarea rows="2" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none" placeholder="Tambahkan catatan untuk UMKM..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3 bg-blue-600 text-white rounded-xl font-semibold text-sm hover:bg-blue-700 active:bg-blue-800 transition-colors shadow-sm mt-2">Kirim Hasil Kerja</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Toast Notification -->
+            <div id="toast" class="hidden absolute top-16 left-4 right-4 bg-gray-900 text-white px-4 py-3 rounded-xl shadow-lg z-50 flex items-center gap-3 fade-in">
+                <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-sm font-medium" id="toast-message">Tindakan berhasil</span>
+            </div>
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="absolute bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-gray-900 rounded-full z-50"></div>
+    </div>
+
+    <script>
+        // Clock
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}`;
+        }
+        updateClock();
+        setInterval(updateClock, 60000);
+
+        // Tab Switching
+        function switchTab(tab) {
+            const aktifBtn = document.getElementById('tab-aktif');
+            const selesaiBtn = document.getElementById('tab-selesai');
+            const selesaiItems = document.querySelectorAll('.selesai-item');
+            const allItems = document.querySelectorAll('#chat-list > div:not(.selesai-item)');
+            
+            if (tab === 'aktif') {
+                aktifBtn.className = 'pb-2 text-sm font-semibold text-blue-600 border-b-2 border-blue-600 transition-colors';
+                selesaiBtn.className = 'pb-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 transition-colors';
+                selesaiItems.forEach(el => el.classList.add('hidden'));
+                allItems.forEach(el => el.classList.remove('hidden'));
+            } else {
+                selesaiBtn.className = 'pb-2 text-sm font-semibold text-blue-600 border-b-2 border-blue-600 transition-colors';
+                aktifBtn.className = 'pb-2 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 transition-colors';
+                selesaiItems.forEach(el => el.classList.remove('hidden'));
+                allItems.forEach(el => el.classList.add('hidden'));
+            }
+        }
+
+        // Navigation
+        function openChat(id) {
+            document.getElementById('screen-inbox').style.transform = 'translateX(-20%)';
+            document.getElementById('screen-inbox').style.opacity = '0.5';
+            document.getElementById('screen-chat').style.transform = 'translateX(0)';
+            
+            // Update header based on chat
+            const names = {
+                'kreator1': { name: 'Sarah Design Studio', status: 'Negosiasi', color: 'text-amber-600', bg: '6366f1' },
+                'kreator2': { name: 'Budi Visual', status: 'Menunggu Review', color: 'text-blue-600', bg: '10b981' },
+                'kreator3': { name: 'Andi Motion', status: 'Escrow', color: 'text-purple-600', bg: 'f59e0b' }
+            };
+            
+            if (names[id]) {
+                document.getElementById('chat-name').textContent = names[id].name;
+                document.getElementById('chat-status').textContent = names[id].status;
+                document.getElementById('chat-status').className = `text-xs font-medium ${names[id].color}`;
+                document.getElementById('chat-avatar').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(names[id].name)}&background=${names[id].bg}&color=fff`;
+            }
+        }
+
+        function backToInbox() {
+            document.getElementById('screen-inbox').style.transform = 'translateX(0)';
+            document.getElementById('screen-inbox').style.opacity = '1';
+            document.getElementById('screen-chat').style.transform = 'translateX(100%)';
+        }
+
+        // Auto-resize textarea
+        function autoResize(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 112) + 'px';
+        }
+
+        // Send Message
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const container = document.getElementById('messages-container');
+            const time = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            
+            const bubble = document.createElement('div');
+            bubble.className = 'flex justify-end fade-in';
+            bubble.innerHTML = `
+                <div class="bg-blue-600 p-3 rounded-2xl rounded-br-none bubble-right shadow-sm max-w-[85%]">
+                    <p class="text-sm text-white leading-relaxed">${escapeHtml(text)}</p>
+                    <div class="flex items-center justify-end gap-1 mt-1">
+                        <span class="text-[10px] text-blue-200">${time}</span>
+                        <svg class="w-3 h-3 text-blue-200" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(bubble);
+            input.value = '';
+            input.style.height = 'auto';
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Modals
+        function showOfferForm() {
+            document.getElementById('modal-offer').classList.remove('hidden');
+        }
+
+        function showProofForm() {
+            document.getElementById('modal-proof').classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function submitOffer(e) {
+            e.preventDefault();
+            closeModal('modal-offer');
+            showToast('Penawaran berhasil dikirim!');
+            
+            // Add offer widget to chat
+            setTimeout(() => {
+                const container = document.getElementById('messages-container');
+                const widget = document.createElement('div');
+                widget.className = 'flex justify-end fade-in';
+                widget.innerHTML = `
+                    <div class="bg-white rounded-2xl rounded-br-none shadow-md border border-gray-200 overflow-hidden max-w-[85%]">
+                        <div class="bg-amber-50 px-4 py-2 border-b border-amber-100 flex items-center gap-2">
+                            <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span class="text-xs font-bold text-amber-800 uppercase tracking-wider">Penawaran Khusus</span>
+                        </div>
+                        <div class="p-4 space-y-2">
+                            <p class="text-sm font-semibold text-gray-900">Video Promosi Produk Kopi Lokal</p>
+                            <p class="text-xs text-gray-600">1 video reels 30-60 detik</p>
+                            <p class="text-base font-bold text-gray-900">Rp 1.500.000</p>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(widget);
+                container.scrollTop = container.scrollHeight;
+            }, 300);
+        }
+
+        function submitProof(e) {
+            e.preventDefault();
+            closeModal('modal-proof');
+            showToast('Bukti hasil kerja berhasil dikirim!');
+            
+            // Show proof widget
+            setTimeout(() => {
+                document.getElementById('proof-widget').classList.remove('hidden');
+                document.getElementById('messages-container').scrollTop = document.getElementById('messages-container').scrollHeight;
+            }, 300);
+        }
+
+        // Handle Offer Actions
+        function handleOffer(action) {
+            const actions = document.getElementById('offer-actions');
+            if (action === 'accept') {
+                actions.innerHTML = '<span class="w-full text-center py-2 text-green-600 text-xs font-bold bg-green-50 rounded-lg">Tawaran Diterima</span>';
+                showToast('Anda menerima tawaran!');
+                document.getElementById('chat-status').textContent = 'Escrow';
+                document.getElementById('chat-status').className = 'text-xs font-medium text-purple-600';
+                
+                // Add system notification
+                setTimeout(() => {
+                    const container = document.getElementById('messages-container');
+                    const notif = document.createElement('div');
+                    notif.className = 'flex justify-center my-2 fade-in';
+                    notif.innerHTML = `
+                        <div class="bg-gray-100 px-4 py-2 rounded-lg max-w-[90%] text-center">
+                            <p class="text-xs text-gray-600">Anda menerima tawaran. Pesanan telah dibayar oleh UMKM dan masuk ke escrow.</p>
+                        </div>
+                    `;
+                    container.appendChild(notif);
+                    container.scrollTop = container.scrollHeight;
+                }, 500);
+            } else {
+                actions.innerHTML = '<span class="w-full text-center py-2 text-red-600 text-xs font-bold bg-red-50 rounded-lg">Tawaran Ditolak</span>';
+                showToast('Tawaran ditolak');
+            }
+        }
+
+        // Handle Proof Actions
+        function handleProof(action) {
+            const actions = document.getElementById('proof-actions');
+            if (action === 'complete') {
+                actions.innerHTML = '<span class="w-full text-center py-2 text-blue-600 text-xs font-bold bg-blue-50 rounded-lg">Pesanan Selesai</span>';
+                showToast('Pesanan telah diselesaikan!');
+                document.getElementById('chat-status').textContent = 'Selesai';
+                document.getElementById('chat-status').className = 'text-xs font-medium text-gray-600';
+            } else {
+                showToast('Permintaan revisi dikirim');
+                // Add revision request bubble
+                const container = document.getElementById('messages-container');
+                const bubble = document.createElement('div');
+                bubble.className = 'flex justify-end fade-in';
+                bubble.innerHTML = `
+                    <div class="bg-amber-50 p-3 rounded-2xl rounded-br-none border border-amber-200 max-w-[85%]">
+                        <p class="text-sm text-amber-900 leading-relaxed">Mohon untuk revisi bagian intro dan penambahan logo di akhir video.</p>
+                        <span class="text-[10px] text-amber-600 mt-1 block text-right">Baru saja</span>
+                    </div>
+                `;
+                container.appendChild(bubble);
+                container.scrollTop = container.scrollHeight;
+            }
+        }
+
+        // Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 2500);
+        }
+
+        // Close modals on backdrop click
+        document.querySelectorAll('[id^="modal-"]').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal(modal.id);
+            });
+        });
+
+        // Enter to send
+        document.getElementById('message-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wireframe Aplikasi UMKM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Menggunakan Lucide Icons untuk Ikon Outline yang Rapih -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Sembunyikan scrollbar untuk tampilan aplikasi mobile */
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+        
+        /* Animasi transisi halaman */
+        .fade-in { animation: fadeIn 0.2s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-gray-200 flex justify-center h-screen font-sans">
+
+    <!-- Mobile App Container -->
+    <div class="bg-gray-50 w-full max-w-md h-full flex flex-col relative shadow-2xl overflow-hidden">
+        
+        <!-- ============================== -->
+        <!-- 1. HOME (DASHBOARD)            -->
+        <!-- ============================== -->
+        <div id="page-home" class="page-container flex flex-col overflow-y-auto flex-grow pb-24 fade-in">
+            <div class="bg-blue-600 text-white p-5 rounded-b-3xl shadow-md">
+                <div class="flex justify-between items-center mb-5">
+                    <h1 class="text-lg font-bold">Halo, Toko Maju Jaya!</h1>
+                    <button class="p-2 bg-white/10 rounded-full hover:bg-white/20 transition">
+                        <i data-lucide="bell" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <div class="bg-white/10 p-5 rounded-2xl mb-4 backdrop-blur-sm border border-white/20">
+                    <p class="text-sm opacity-90 flex items-center gap-2">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i> Total Saldo Escrow
+                    </p>
+                    <h2 class="text-3xl font-bold mt-1">Rp 5.500.000</h2>
+                </div>
+                <div class="flex justify-between text-sm px-1">
+                    <div>
+                        <p class="opacity-80">Pengeluaran Bulan Ini</p>
+                        <p class="font-semibold mt-1">Rp 1.200.000</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="opacity-80">Estimasi ROI</p>
+                        <p class="font-bold text-green-300 mt-1 flex items-center gap-1 justify-end">
+                            <i data-lucide="trending-up" class="w-4 h-4"></i> +14%
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-5">
+                <h3 class="font-bold text-gray-800 mb-3">Aksi Cepat</h3>
+                <div class="flex gap-3 mb-6">
+                    <button onclick="nav('page-wizard')" class="flex-1 bg-white border border-gray-200 py-4 rounded-2xl shadow-sm font-semibold text-blue-600 text-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-50 transition">
+                        <div class="bg-blue-50 p-2 rounded-full">
+                            <i data-lucide="plus" class="w-5 h-5"></i>
+                        </div>
+                        Buat Campaign
+                    </button>
+                    <button onclick="nav('page-creator-dir')" class="flex-1 bg-white border border-gray-200 py-4 rounded-2xl shadow-sm font-semibold text-blue-600 text-sm flex flex-col items-center justify-center gap-2 hover:bg-gray-50 transition">
+                        <div class="bg-blue-50 p-2 rounded-full">
+                            <i data-lucide="search" class="w-5 h-5"></i>
+                        </div>
+                        Cari Kreator
+                    </button>
+                </div>
+
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-gray-800">Campaign Berjalan</h3>
+                    <button onclick="nav('page-campaign')" class="text-sm text-blue-600 font-semibold flex items-center gap-1">
+                        Lihat Semua <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                
+                <!-- Carousel Mock -->
+                <div class="flex gap-4 overflow-x-auto pb-4 snap-x">
+                    <div onclick="nav('page-campaign-detail')" class="min-w-[85%] bg-white p-5 rounded-2xl shadow-sm border border-gray-100 snap-center cursor-pointer hover:border-blue-200 transition">
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-bold text-gray-800">Promo Kemerdekaan</h4>
+                            <span class="bg-green-50 border border-green-200 text-green-600 text-xs px-2 py-1 rounded-md font-bold flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span> Aktif
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-500 mb-3">
+                            <i data-lucide="users" class="w-4 h-4"></i> Progress: 5/10 Kreator
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2">
+                            <div class="bg-blue-600 h-2 rounded-full" style="width: 50%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 2. DAFTAR CAMPAIGN             -->
+        <!-- ============================== -->
+        <div id="page-campaign" class="page-container hidden flex-col overflow-y-auto flex-grow pb-24 bg-white relative fade-in">
+            <div class="p-5 border-b border-gray-100 sticky top-0 bg-white z-10">
+                <h2 class="text-lg font-bold text-gray-800 text-center">Kampanye Saya</h2>
+                <div class="flex gap-2 mt-5 overflow-x-auto pb-1 no-scrollbar">
+                    <button class="px-4 py-1.5 bg-blue-600 text-white text-sm rounded-full font-medium whitespace-nowrap">Semua</button>
+                    <button class="px-4 py-1.5 bg-gray-50 border border-gray-200 text-gray-600 text-sm rounded-full font-medium whitespace-nowrap">Aktif</button>
+                    <button class="px-4 py-1.5 bg-gray-50 border border-gray-200 text-gray-600 text-sm rounded-full font-medium whitespace-nowrap">Draft</button>
+                    <button class="px-4 py-1.5 bg-gray-50 border border-gray-200 text-gray-600 text-sm rounded-full font-medium whitespace-nowrap">Selesai</button>
+                </div>
+            </div>
+            
+            <div class="p-5 space-y-4">
+                <div onclick="nav('page-campaign-detail')" class="flex gap-4 border border-gray-100 p-4 rounded-2xl cursor-pointer hover:bg-gray-50 transition shadow-sm">
+                    <div class="w-14 h-14 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center">
+                        <i data-lucide="image" class="w-6 h-6"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-gray-800">Promo Kemerdekaan</h4>
+                        <p class="text-sm text-gray-500 mt-0.5 flex items-center gap-1">
+                            <i data-lucide="users" class="w-3 h-3"></i> 5/10 Kreator
+                        </p>
+                        <span class="inline-block mt-2 bg-green-50 text-green-600 border border-green-200 text-[10px] px-2 py-0.5 rounded font-bold">Aktif</span>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-300 self-center"></i>
+                </div>
+
+                <div class="flex gap-4 border border-gray-100 p-4 rounded-2xl opacity-60">
+                    <div class="w-14 h-14 bg-gray-100 text-gray-400 rounded-xl flex items-center justify-center">
+                        <i data-lucide="image" class="w-6 h-6"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-gray-800">Bazar Akhir Tahun</h4>
+                        <p class="text-sm text-gray-500 mt-0.5 flex items-center gap-1">
+                            <i data-lucide="users" class="w-3 h-3"></i> 15/15 Kreator
+                        </p>
+                        <span class="inline-block mt-2 bg-gray-100 text-gray-500 border border-gray-200 text-[10px] px-2 py-0.5 rounded font-bold">Selesai</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Action Button -->
+            <button onclick="nav('page-wizard')" class="absolute bottom-24 right-5 w-14 h-14 bg-blue-600 text-white rounded-2xl shadow-lg flex items-center justify-center shadow-blue-600/30 hover:bg-blue-700 transition">
+                <i data-lucide="plus" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 3. BUAT CAMPAIGN WIZARD        -->
+        <!-- ============================== -->
+        <div id="page-wizard" class="page-container hidden flex-col overflow-y-auto flex-grow bg-white h-full fade-in">
+            <div class="p-4 border-b border-gray-100 flex items-center gap-3 sticky top-0 bg-white z-10">
+                <button onclick="nav('page-home')" class="p-2 -ml-2 rounded-full hover:bg-gray-100 text-gray-700">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                </button>
+                <h2 class="text-lg font-bold text-gray-800">Buat Campaign Baru</h2>
+            </div>
+            
+            <div class="p-5 flex-grow relative">
+                <!-- Progress Bar -->
+                <div class="flex gap-2 mb-8">
+                    <div class="h-1.5 flex-1 bg-blue-600 rounded-full transition-all duration-300" id="bar-1"></div>
+                    <div class="h-1.5 flex-1 bg-gray-100 rounded-full transition-all duration-300" id="bar-2"></div>
+                    <div class="h-1.5 flex-1 bg-gray-100 rounded-full transition-all duration-300" id="bar-3"></div>
+                    <div class="h-1.5 flex-1 bg-gray-100 rounded-full transition-all duration-300" id="bar-4"></div>
+                </div>
+
+                <!-- Step 1 -->
+                <div id="step-1" class="wizard-step block">
+                    <h3 class="font-bold text-gray-800 mb-5 flex items-center gap-2">
+                        <div class="bg-blue-100 text-blue-600 w-6 h-6 rounded-full flex justify-center items-center text-xs">1</div>
+                        Info Dasar
+                    </h3>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1.5">Nama Produk / Campaign</label>
+                    <input type="text" class="w-full bg-gray-50 border border-gray-200 p-3.5 rounded-xl mb-5 outline-none focus:border-blue-500 focus:bg-white transition" placeholder="Misal: Launching Kopi Susu Aren">
+                    
+                    <label class="block text-sm font-semibold text-gray-700 mb-1.5">Kategori Niche</label>
+                    <select class="w-full bg-gray-50 border border-gray-200 p-3.5 rounded-xl mb-5 outline-none focus:border-blue-500 transition appearance-none">
+                        <option>Makanan & Minuman</option>
+                        <option>Fashion</option>
+                        <option>Kecantikan</option>
+                    </select>
+
+                    <div class="flex justify-between items-center mb-1.5">
+                        <label class="block text-sm font-semibold text-gray-700">Brief / Instruksi</label>
+                        <button class="text-xs text-purple-600 bg-purple-50 px-2 py-1 rounded-md flex items-center gap-1 font-bold">
+                            <i data-lucide="sparkles" class="w-3 h-3"></i> Bantu AI
+                        </button>
+                    </div>
+                    <textarea class="w-full bg-gray-50 border border-gray-200 p-3.5 rounded-xl h-32 outline-none focus:border-blue-500 focus:bg-white transition resize-none" placeholder="Jelaskan apa yang harus dilakukan kreator..."></textarea>
+                </div>
+
+                <!-- Step 2 -->
+                <div id="step-2" class="wizard-step hidden">
+                    <h3 class="font-bold text-gray-800 mb-5 flex items-center gap-2">
+                        <div class="bg-blue-100 text-blue-600 w-6 h-6 rounded-full flex justify-center items-center text-xs">2</div>
+                        Upload Aset
+                    </h3>
+                    <div class="border-2 border-dashed border-gray-300 rounded-2xl p-8 text-center bg-gray-50 mb-6 flex flex-col items-center justify-center hover:bg-gray-100 transition cursor-pointer">
+                        <i data-lucide="upload-cloud" class="w-10 h-10 text-gray-400 mb-3"></i>
+                        <p class="text-sm text-gray-700 font-semibold mb-1">Pilih File Aset</p>
+                        <p class="text-xs text-gray-400">Maksimal 100MB (JPG/MP4/PDF)</p>
+                    </div>
+                    
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="h-px bg-gray-200 flex-1"></div>
+                        <span class="text-xs text-gray-400 font-bold">ATAU</span>
+                        <div class="h-px bg-gray-200 flex-1"></div>
+                    </div>
+
+                    <label class="block text-sm font-semibold text-gray-700 mb-1.5">Link Alternatif</label>
+                    <div class="relative">
+                        <i data-lucide="link" class="absolute left-3.5 top-3.5 w-5 h-5 text-gray-400"></i>
+                        <input type="text" class="w-full bg-gray-50 border border-gray-200 p-3.5 pl-11 rounded-xl outline-none focus:border-blue-500 transition" placeholder="Link Google Drive / Dropbox">
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div id="step-3" class="wizard-step hidden">
+                    <h3 class="font-bold text-gray-800 mb-5 flex items-center gap-2">
+                        <div class="bg-blue-100 text-blue-600 w-6 h-6 rounded-full flex justify-center items-center text-xs">3</div>
+                        Anggaran & Target
+                    </h3>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1.5">Bayaran per 1.000 views (Rp)</label>
+                    <div class="relative mb-5">
+                        <span class="absolute left-4 top-3.5 font-bold text-gray-500">Rp</span>
+                        <input type="number" class="w-full bg-gray-50 border border-gray-200 p-3.5 pl-11 rounded-xl outline-none focus:border-blue-500 transition font-medium" placeholder="15.000" value="15000">
+                    </div>
+                    
+                    <label class="block text-sm font-semibold text-gray-700 mb-1.5">Batas Maksimal Kuota Kreator</label>
+                    <div class="relative">
+                        <i data-lucide="users" class="absolute left-3.5 top-3.5 w-5 h-5 text-gray-400"></i>
+                        <input type="number" class="w-full bg-gray-50 border border-gray-200 p-3.5 pl-11 rounded-xl outline-none focus:border-blue-500 transition font-medium" placeholder="10" value="10">
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div id="step-4" class="wizard-step hidden">
+                    <h3 class="font-bold text-gray-800 mb-5 flex items-center gap-2">
+                        <div class="bg-blue-100 text-blue-600 w-6 h-6 rounded-full flex justify-center items-center text-xs">4</div>
+                        Review & Bayar
+                    </h3>
+                    <div class="bg-blue-50 border border-blue-100 rounded-2xl p-5 mb-5">
+                        <h4 class="font-bold text-blue-900 mb-3 flex items-center gap-2">
+                            <i data-lucide="file-text" class="w-4 h-4"></i> Ringkasan Campaign
+                        </h4>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm"><span class="text-gray-500">Judul:</span><span class="font-medium text-gray-800">Launching Kopi Susu</span></div>
+                            <div class="flex justify-between text-sm"><span class="text-gray-500">Niche:</span><span class="font-medium text-gray-800">Makanan & Minuman</span></div>
+                            <div class="flex justify-between text-sm"><span class="text-gray-500">Rate/1k view:</span><span class="font-medium text-gray-800">Rp 15.000</span></div>
+                            <div class="flex justify-between text-sm"><span class="text-gray-500">Target Kuota:</span><span class="font-medium text-gray-800">10 Kreator</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-2xl p-5">
+                        <div class="flex justify-between text-sm mb-2 text-gray-500">
+                            <span>Estimasi Maks Anggaran</span>
+                            <span class="font-semibold text-gray-800">Rp 1.500.000</span>
+                        </div>
+                        <div class="flex justify-between text-sm mb-4 text-gray-500">
+                            <span>Biaya Platform (5%)</span>
+                            <span class="font-semibold text-gray-800">Rp 75.000</span>
+                        </div>
+                        <div class="border-t border-dashed border-gray-300 pt-4 flex justify-between items-center">
+                            <span class="font-bold text-gray-800">Total Dibayar</span>
+                            <span class="text-xl font-bold text-blue-600">Rp 1.575.000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-5 border-t border-gray-100 flex gap-3 bg-white sticky bottom-0">
+                <button id="btn-prev" onclick="changeStep(-1)" class="px-5 py-3.5 bg-gray-50 border border-gray-200 text-gray-600 rounded-xl font-semibold hidden hover:bg-gray-100 transition">
+                    Kembali
+                </button>
+                <button id="btn-next" onclick="changeStep(1)" class="flex-1 px-5 py-3.5 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition flex justify-center items-center gap-2 shadow-lg shadow-blue-600/20">
+                    Lanjut <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 4. DETAIL CAMPAIGN             -->
+        <!-- ============================== -->
+        <div id="page-campaign-detail" class="page-container hidden flex-col overflow-y-auto flex-grow bg-white h-full pb-20 fade-in">
+            <div class="p-4 border-b border-gray-100 flex justify-between items-center sticky top-0 bg-white z-10">
+                <div class="flex items-center gap-3">
+                    <button onclick="nav('page-campaign')" class="p-2 -ml-2 rounded-full hover:bg-gray-100 text-gray-700">
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </button>
+                    <h2 class="text-lg font-bold text-gray-800">Detail Campaign</h2>
+                </div>
+                <button class="text-gray-400 hover:text-gray-600"><i data-lucide="more-vertical" class="w-5 h-5"></i></button>
+            </div>
+
+            <div class="p-5">
+                <div class="flex justify-between items-start mb-5">
+                    <h1 class="text-xl font-bold text-gray-800">Promo Kemerdekaan</h1>
+                    <span class="bg-green-50 border border-green-200 text-green-600 text-xs px-2.5 py-1 rounded-md font-bold">Aktif</span>
+                </div>
+                
+                <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100 mb-6 grid grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-xs text-gray-500 mb-1 flex items-center gap-1"><i data-lucide="coins" class="w-3 h-3"></i> Rate/1k view</p>
+                        <p class="font-bold text-gray-800">Rp 20.000</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 mb-1 flex items-center gap-1"><i data-lucide="users" class="w-3 h-3"></i> Kuota Kreator</p>
+                        <p class="font-bold text-gray-800">5 / 10</p>
+                    </div>
+                    <div class="col-span-2 pt-2 border-t border-gray-200">
+                        <a href="#" class="text-sm font-semibold text-blue-600 flex items-center gap-2 hover:underline">
+                            <i data-lucide="folder" class="w-4 h-4"></i> Buka Folder Aset (G-Drive)
+                        </a>
+                    </div>
+                </div>
+
+                <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <i data-lucide="inbox" class="w-5 h-5 text-gray-400"></i> Daftar Submission
+                </h3>
+                
+                <div class="space-y-4">
+                    <!-- Item Kreator 1 -->
+                    <div class="border border-gray-200 rounded-2xl p-4 flex flex-col gap-3 shadow-sm">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-gray-100 text-gray-500 rounded-full flex items-center justify-center">
+                                    <i data-lucide="user" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-sm text-gray-800">Andi Saputra</p>
+                                    <p class="text-[10px] text-gray-400">Tiktok: @andisap</p>
+                                </div>
+                            </div>
+                            <span class="bg-yellow-50 text-yellow-600 border border-yellow-200 text-[10px] px-2 py-1 rounded font-bold">Menunggu Validasi</span>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 flex justify-between items-center">
+                            <span class="text-xs text-gray-500 font-medium">Link Bukti Tayang:</span>
+                            <a href="#" class="text-xs text-blue-600 font-bold flex items-center gap-1">
+                                tiktok.com/@andi/vid... <i data-lucide="external-link" class="w-3 h-3"></i>
+                            </a>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="flex-1 bg-green-600 text-white text-xs py-2.5 rounded-xl font-bold hover:bg-green-700 transition">Validasi & Bayar</button>
+                            <button class="flex-1 bg-white border border-red-200 text-red-600 text-xs py-2.5 rounded-xl font-bold hover:bg-red-50 transition">Tolak</button>
+                        </div>
+                    </div>
+
+                    <!-- Item Kreator 2 -->
+                    <div class="border border-gray-200 rounded-2xl p-4 flex flex-col gap-3">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-gray-100 text-gray-500 rounded-full flex items-center justify-center">
+                                    <i data-lucide="user" class="w-5 h-5"></i>
+                                </div>
+                                <p class="font-bold text-sm text-gray-800">Budi Content</p>
+                            </div>
+                            <span class="bg-blue-50 text-blue-600 border border-blue-200 text-[10px] px-2 py-1 rounded font-bold">Mengerjakan</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 5. DIREKTORI KREATOR           -->
+        <!-- ============================== -->
+        <div id="page-creator-dir" class="page-container hidden flex-col overflow-y-auto flex-grow pb-24 bg-white relative fade-in">
+            <div class="p-5 border-b border-gray-100 sticky top-0 bg-white z-10">
+                <h2 class="text-lg font-bold text-gray-800 text-center mb-5">Direktori Kreator</h2>
+                <div class="relative mb-4">
+                    <i data-lucide="search" class="absolute left-4 top-3.5 w-5 h-5 text-gray-400"></i>
+                    <input type="text" class="w-full bg-gray-50 border border-gray-200 p-3.5 pl-12 rounded-2xl text-sm outline-none focus:border-blue-500 transition" placeholder="Cari nama atau username kreator...">
+                </div>
+                <div class="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+                    <select class="bg-white border border-gray-200 text-sm p-2 rounded-xl outline-none font-medium text-gray-600"><option>Semua Niche</option><option>Food</option></select>
+                    <select class="bg-white border border-gray-200 text-sm p-2 rounded-xl outline-none font-medium text-gray-600"><option>Harga</option><option>< 500rb</option></select>
+                    <select class="bg-white border border-gray-200 text-sm p-2 rounded-xl outline-none font-medium text-gray-600"><option>Rating</option><option>> 4.5</option></select>
+                </div>
+            </div>
+
+            <div class="p-5 grid grid-cols-2 gap-4">
+                <!-- Creator Card -->
+                <div onclick="nav('page-creator-profile')" class="border border-gray-200 rounded-2xl p-4 flex flex-col items-center text-center cursor-pointer hover:shadow-md hover:border-blue-200 transition bg-white relative">
+                    <button class="absolute top-3 right-3 text-gray-300 hover:text-red-500 transition"><i data-lucide="heart" class="w-4 h-4"></i></button>
+                    <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full mb-3 flex items-center justify-center">
+                        <i data-lucide="user" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="font-bold text-sm text-gray-800">Dina Foodie</h4>
+                    <p class="text-[10px] text-gray-500 mb-2 bg-gray-100 px-2 py-0.5 rounded-full mt-1">Makanan</p>
+                    <div class="text-xs font-bold text-gray-700 mb-4 flex items-center justify-center gap-1">
+                        <i data-lucide="star" class="w-3 h-3 fill-yellow-400 text-yellow-400"></i> 4.9 <span class="text-gray-400 font-normal">(120)</span>
+                    </div>
+                    <div class="mt-auto w-full pt-3 border-t border-gray-100">
+                        <p class="text-[10px] text-gray-400 mb-0.5">Mulai Dari</p>
+                        <p class="font-bold text-blue-600 text-sm">Rp 300.000</p>
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-2xl p-4 flex flex-col items-center text-center cursor-pointer hover:shadow-md transition bg-white relative">
+                    <button class="absolute top-3 right-3 text-gray-300 hover:text-red-500 transition"><i data-lucide="heart" class="w-4 h-4"></i></button>
+                    <div class="w-16 h-16 bg-green-50 text-green-600 rounded-full mb-3 flex items-center justify-center">
+                        <i data-lucide="user" class="w-8 h-8"></i>
+                    </div>
+                    <h4 class="font-bold text-sm text-gray-800">Riko Tech</h4>
+                    <p class="text-[10px] text-gray-500 mb-2 bg-gray-100 px-2 py-0.5 rounded-full mt-1">Teknologi</p>
+                    <div class="text-xs font-bold text-gray-700 mb-4 flex items-center justify-center gap-1">
+                        <i data-lucide="star" class="w-3 h-3 fill-yellow-400 text-yellow-400"></i> 4.8 <span class="text-gray-400 font-normal">(85)</span>
+                    </div>
+                    <div class="mt-auto w-full pt-3 border-t border-gray-100">
+                        <p class="text-[10px] text-gray-400 mb-0.5">Mulai Dari</p>
+                        <p class="font-bold text-blue-600 text-sm">Rp 500.000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 6. PROFIL KREATOR              -->
+        <!-- ============================== -->
+        <div id="page-creator-profile" class="page-container hidden flex-col overflow-y-auto flex-grow bg-white h-full relative pb-24 fade-in">
+            <div class="h-36 bg-gradient-to-r from-blue-100 to-purple-100 relative">
+                <button onclick="nav('page-creator-dir')" class="absolute top-5 left-5 w-10 h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center shadow-sm text-gray-800 hover:bg-white transition">
+                    <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div class="px-5 pb-5 -mt-12 relative z-10">
+                <div class="w-24 h-24 bg-white rounded-full p-1.5 shadow-md mb-3">
+                    <div class="w-full h-full bg-blue-50 text-blue-500 rounded-full flex items-center justify-center">
+                        <i data-lucide="user" class="w-10 h-10"></i>
+                    </div>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-1.5">
+                    Dina Foodie <i data-lucide="badge-check" class="w-5 h-5 text-blue-500"></i>
+                </h2>
+                <p class="text-sm text-gray-500 mt-1 mb-4 leading-relaxed">Food Reviewer & Vlogger Surabaya. Menerima review UMKM kuliner.</p>
+                
+                <div class="flex gap-2 mb-8">
+                    <a href="#" class="text-xs bg-gray-50 border border-gray-200 px-3 py-2 rounded-xl font-semibold flex items-center gap-1.5 text-gray-700">
+                        <i data-lucide="video" class="w-4 h-4 text-gray-500"></i> @dina_foodie
+                    </a>
+                    <a href="#" class="text-xs bg-gray-50 border border-gray-200 px-3 py-2 rounded-xl font-semibold flex items-center gap-1.5 text-gray-700">
+                        <i data-lucide="camera" class="w-4 h-4 text-gray-500"></i> @dina.eats
+                    </a>
+                </div>
+
+                <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <i data-lucide="list-tree" class="w-5 h-5 text-gray-400"></i> Rate Card Jasa
+                </h3>
+                <div class="space-y-4">
+                    <div class="border border-gray-200 rounded-2xl p-5 shadow-sm relative overflow-hidden bg-white">
+                        <div class="absolute top-0 left-0 w-1.5 h-full bg-blue-500"></div>
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-bold text-gray-800">Video TikTok 1 Menit</h4>
+                            <span class="font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-lg text-sm">Rp 300.000</span>
+                        </div>
+                        <ul class="text-sm text-gray-500 space-y-2">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-green-500"></i> Revisi maksimal 1x</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-green-500"></i> Format Vertical 9:16</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-green-500"></i> Include Voice Over</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-2xl p-5 shadow-sm relative overflow-hidden bg-white">
+                        <div class="absolute top-0 left-0 w-1.5 h-full bg-purple-500"></div>
+                        <div class="flex justify-between items-start mb-3">
+                            <h4 class="font-bold text-gray-800">Video + Crosspost IG</h4>
+                            <span class="font-bold text-purple-600 bg-purple-50 px-2 py-1 rounded-lg text-sm">Rp 450.000</span>
+                        </div>
+                        <ul class="text-sm text-gray-500 space-y-2">
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-green-500"></i> Post di TikTok & IG Reels</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-green-500"></i> Link di Bio (3 Hari)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Contact Button -->
+            <div class="fixed bottom-0 w-full max-w-md bg-white border-t border-gray-100 p-4 pb-6 z-20">
+                <button class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 hover:bg-blue-700 transition">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i> Hubungi Kreator
+                </button>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 7. KEUANGAN                    -->
+        <!-- ============================== -->
+        <div id="page-finance" class="page-container hidden flex-col overflow-y-auto flex-grow pb-24 bg-white relative fade-in">
+            <div class="p-5 border-b border-gray-100 sticky top-0 bg-white z-10 text-center">
+                <h2 class="text-lg font-bold text-gray-800">Keuangan</h2>
+            </div>
+
+            <div class="p-5">
+                <div class="bg-gray-900 text-white p-6 rounded-3xl shadow-xl mb-6 relative overflow-hidden">
+                    <i data-lucide="wallet" class="absolute -right-6 -bottom-6 w-40 h-40 opacity-10 rotate-12"></i>
+                    <p class="text-sm opacity-80 mb-2 flex items-center gap-2">
+                        <i data-lucide="coins" class="w-4 h-4"></i> Saldo Tersedia
+                    </p>
+                    <h2 class="text-4xl font-bold mb-6 tracking-tight">Rp 2.000.000</h2>
+                    <div class="border-t border-gray-700 pt-4 flex justify-between items-center">
+                        <div>
+                            <p class="text-xs opacity-70 mb-1">Saldo Escrow (Tertahan)</p>
+                            <p class="font-semibold text-sm">Rp 5.500.000</p>
+                        </div>
+                        <i data-lucide="shield-check" class="w-6 h-6 opacity-50"></i>
+                    </div>
+                </div>
+
+                <button class="w-full bg-blue-50 text-blue-600 border border-blue-200 font-bold py-4 rounded-2xl mb-8 flex items-center justify-center gap-2 hover:bg-blue-100 transition">
+                    <i data-lucide="plus-circle" class="w-5 h-5"></i> Deposit Dana (Top-Up)
+                </button>
+
+                <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <i data-lucide="history" class="w-5 h-5 text-gray-400"></i> Riwayat Transaksi
+                </h3>
+                <div class="space-y-5">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-red-50 text-red-500 rounded-full flex items-center justify-center">
+                                <i data-lucide="arrow-up-right" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-sm text-gray-800">Pembayaran Jasa</p>
+                                <p class="text-xs text-gray-500 mt-0.5">Dina Foodie</p>
+                            </div>
+                        </div>
+                        <span class="font-bold text-red-600 text-sm">-Rp 300.000</span>
+                    </div>
+                    
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-green-50 text-green-500 rounded-full flex items-center justify-center">
+                                <i data-lucide="arrow-down-left" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-sm text-gray-800">Deposit Masuk</p>
+                                <p class="text-xs text-gray-500 mt-0.5">BCA Virtual Account</p>
+                            </div>
+                        </div>
+                        <span class="font-bold text-green-600 text-sm">+Rp 5.000.000</span>
+                    </div>
+                    
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-red-50 text-red-500 rounded-full flex items-center justify-center">
+                                <i data-lucide="arrow-up-right" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-sm text-gray-800">Deposit Escrow</p>
+                                <p class="text-xs text-gray-500 mt-0.5">Campaign Kemerdekaan</p>
+                            </div>
+                        </div>
+                        <span class="font-bold text-red-600 text-sm">-Rp 1.575.000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- 8. PROFIL UMKM                 -->
+        <!-- ============================== -->
+        <div id="page-profile" class="page-container hidden flex-col overflow-y-auto flex-grow pb-24 bg-gray-50 relative fade-in">
+            <div class="p-5 bg-white border-b border-gray-100 text-center sticky top-0 z-10">
+                <h2 class="text-lg font-bold text-gray-800">Profil Bisnis</h2>
+            </div>
+            
+            <div class="px-5 py-8 flex flex-col items-center bg-white border-b border-gray-100">
+                <div class="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mb-4 border-4 border-white shadow-md text-blue-600">
+                    <i data-lucide="store" class="w-10 h-10"></i>
+                </div>
+                <h2 class="text-xl font-bold text-gray-800">Toko Maju Jaya</h2>
+                <p class="text-sm text-gray-500 mt-1">admin@majujaya.com</p>
+                <p class="text-sm text-gray-500">+62 812-3456-7890</p>
+            </div>
+
+            <div class="p-5 space-y-3">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 ml-2">Pengaturan Akun</p>
+                <button class="w-full bg-white border border-gray-100 p-4 rounded-2xl flex justify-between items-center text-left hover:bg-gray-50 transition shadow-sm">
+                    <span class="font-semibold text-gray-700 flex items-center gap-3">
+                        <i data-lucide="pencil" class="w-5 h-5 text-gray-400"></i> Edit Profil
+                    </span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-300"></i>
+                </button>
+                <button class="w-full bg-white border border-gray-100 p-4 rounded-2xl flex justify-between items-center text-left hover:bg-gray-50 transition shadow-sm">
+                    <span class="font-semibold text-gray-700 flex items-center gap-3">
+                        <i data-lucide="lock" class="w-5 h-5 text-gray-400"></i> Keamanan & Sandi
+                    </span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-300"></i>
+                </button>
+                
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 ml-2 mt-6">Lainnya</p>
+                <button class="w-full bg-white border border-gray-100 p-4 rounded-2xl flex justify-between items-center text-left hover:bg-gray-50 transition shadow-sm">
+                    <span class="font-semibold text-gray-700 flex items-center gap-3">
+                        <i data-lucide="file-text" class="w-5 h-5 text-gray-400"></i> Syarat & Ketentuan
+                    </span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-300"></i>
+                </button>
+                <button class="w-full bg-white border border-gray-100 p-4 rounded-2xl flex justify-between items-center text-left hover:bg-gray-50 transition shadow-sm">
+                    <span class="font-semibold text-gray-700 flex items-center gap-3">
+                        <i data-lucide="headphones" class="w-5 h-5 text-gray-400"></i> Pusat Bantuan
+                    </span>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-300"></i>
+                </button>
+            </div>
+
+            <div class="px-5 pt-2 pb-5">
+                <button class="w-full bg-red-50 text-red-600 border border-red-100 p-4 rounded-2xl font-bold flex justify-center items-center gap-2 hover:bg-red-100 transition">
+                    <i data-lucide="log-out" class="w-5 h-5"></i> Keluar Akun
+                </button>
+            </div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- BOTTOM NAVIGATION              -->
+        <!-- ============================== -->
+        <div id="bottom-nav" class="absolute bottom-0 w-full bg-white border-t border-gray-100 flex justify-around px-2 py-3 z-50 shadow-[0_-4px_15px_rgba(0,0,0,0.02)]">
+            <button onclick="nav('page-home')" class="nav-btn flex-1 flex flex-col items-center gap-1.5 text-blue-600 transition">
+                <i data-lucide="home" class="w-6 h-6"></i>
+                <span class="text-[10px] font-bold">Beranda</span>
+            </button>
+            <button onclick="nav('page-campaign')" class="nav-btn flex-1 flex flex-col items-center gap-1.5 text-gray-400 hover:text-gray-600 transition">
+                <i data-lucide="megaphone" class="w-6 h-6"></i>
+                <span class="text-[10px] font-bold">Kampanye</span>
+            </button>
+            <button onclick="nav('page-creator-dir')" class="nav-btn flex-1 flex flex-col items-center gap-1.5 text-gray-400 hover:text-gray-600 transition">
+                <i data-lucide="users" class="w-6 h-6"></i>
+                <span class="text-[10px] font-bold">Kreator</span>
+            </button>
+            <button onclick="nav('page-finance')" class="nav-btn flex-1 flex flex-col items-center gap-1.5 text-gray-400 hover:text-gray-600 transition">
+                <i data-lucide="wallet" class="w-6 h-6"></i>
+                <span class="text-[10px] font-bold">Keuangan</span>
+            </button>
+            <button onclick="nav('page-profile')" class="nav-btn flex-1 flex flex-col items-center gap-1.5 text-gray-400 hover:text-gray-600 transition">
+                <i data-lucide="user" class="w-6 h-6"></i>
+                <span class="text-[10px] font-bold">Profil</span>
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        // Inisialisasi ikon Lucide
+        lucide.createIcons();
+
+        const rootPages = ['page-home', 'page-campaign', 'page-creator-dir', 'page-finance', 'page-profile'];
+
+        // Logic Navigasi - Diperbarui agar menggunakan Tailwind classes saja untuk menghindari bug CSS specificity
+        function nav(pageId) {
+            // Sembunyikan semua halaman
+            document.querySelectorAll('.page-container').forEach(p => {
+                p.classList.add('hidden');
+                p.classList.remove('flex'); // Hapus flex agar elemen benar-benar hilang
+            });
+            
+            // Tampilkan halaman target
+            const target = document.getElementById(pageId);
+            target.classList.remove('hidden');
+            target.classList.add('flex'); // Kembalikan flex karena kita pakai flex-col
+
+            // Atur Menu Navigasi Bawah
+            const bottomNav = document.getElementById('bottom-nav');
+            if (rootPages.includes(pageId)) {
+                bottomNav.classList.remove('hidden');
+                bottomNav.classList.add('flex');
+                updateBottomNavVisuals(pageId);
+            } else {
+                bottomNav.classList.add('hidden');
+                bottomNav.classList.remove('flex');
+            }
+
+            // Jika masuk wizard, reset
+            if(pageId === 'page-wizard') {
+                currentStep = 1;
+                updateWizardUI();
+            }
+            
+            // Re-render icon jika ada manipulasi DOM mendadak (opsional)
+            lucide.createIcons();
+        }
+
+        // Update UI Navigasi
+        function updateBottomNavVisuals(activePageId) {
+            const btns = document.querySelectorAll('.nav-btn');
+            btns.forEach(btn => {
+                btn.classList.remove('text-blue-600');
+                btn.classList.add('text-gray-400');
+            });
+
+            if(activePageId === 'page-home') btns[0].classList.replace('text-gray-400', 'text-blue-600');
+            if(activePageId === 'page-campaign') btns[1].classList.replace('text-gray-400', 'text-blue-600');
+            if(activePageId === 'page-creator-dir') btns[2].classList.replace('text-gray-400', 'text-blue-600');
+            if(activePageId === 'page-finance') btns[3].classList.replace('text-gray-400', 'text-blue-600');
+            if(activePageId === 'page-profile') btns[4].classList.replace('text-gray-400', 'text-blue-600');
+        }
+
+        // Logic Wizard Pembuatan Campaign (Diperbarui dengan Tailwind class)
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function changeStep(direction) {
+            if (direction === 1 && currentStep === totalSteps) {
+                alert('Pembayaran Escrow Berhasil! Campaign diterbitkan.');
+                nav('page-campaign');
+                return;
+            }
+
+            currentStep += direction;
+            if(currentStep < 1) currentStep = 1;
+            if(currentStep > totalSteps) currentStep = totalSteps;
+            updateWizardUI();
+        }
+
+        function updateWizardUI() {
+            // Toggle step content
+            for(let i = 1; i <= totalSteps; i++){
+                document.getElementById('step-'+i).classList.add('hidden');
+                document.getElementById('step-'+i).classList.remove('block');
+                
+                // Update Progress Bar
+                const bar = document.getElementById('bar-'+i);
+                if(i <= currentStep) {
+                    bar.classList.replace('bg-gray-100', 'bg-blue-600');
+                } else {
+                    bar.classList.replace('bg-blue-600', 'bg-gray-100');
+                }
+            }
+            document.getElementById('step-'+currentStep).classList.remove('hidden');
+            document.getElementById('step-'+currentStep).classList.add('block');
+
+            // Atur tombol
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+            
+            if (currentStep === 1) {
+                btnPrev.classList.add('hidden');
+                btnPrev.classList.remove('block');
+            } else {
+                btnPrev.classList.remove('hidden');
+                btnPrev.classList.add('block');
+            }
+
+            if (currentStep === totalSteps) {
+                btnNext.innerHTML = `Bayar Sekarang <i data-lucide="check-circle" class="w-4 h-4"></i>`;
+                btnNext.classList.replace('bg-blue-600', 'bg-green-600');
+                btnNext.classList.replace('hover:bg-blue-700', 'hover:bg-green-700');
+                btnNext.classList.replace('shadow-blue-600/20', 'shadow-green-600/20');
+            } else {
+                btnNext.innerHTML = `Lanjut <i data-lucide="arrow-right" class="w-4 h-4"></i>`;
+                btnNext.classList.replace('bg-green-600', 'bg-blue-600');
+                btnNext.classList.replace('hover:bg-green-700', 'hover:bg-blue-700');
+                btnNext.classList.replace('shadow-green-600/20', 'shadow-blue-600/20');
+            }
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

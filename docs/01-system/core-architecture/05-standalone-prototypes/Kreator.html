@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creator Dashboard - Full Wireframe</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        /* Animasi sederhana untuk sub-page */
+        .slide-in { animation: slideIn 0.3s forwards; }
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-200 flex justify-center min-h-screen">
+
+    <!-- Mobile App Container -->
+    <div class="w-full max-w-md bg-gray-50 min-h-screen relative font-sans shadow-lg flex flex-col overflow-hidden">
+        
+        <!-- ================= MAIN PAGES ================= -->
+        <div class="flex-1 overflow-y-auto pb-20 relative" id="main-content">
+            
+            <!-- 1. Halaman Home (Dashboard) -->
+            <div id="page-home" class="p-4 space-y-6 block main-page">
+                <div class="flex justify-between items-center mt-2">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">Halo, Budi! 👋</h1>
+                        <p class="text-sm text-gray-500">Siap berkarya hari ini?</p>
+                    </div>
+                    <button class="relative p-2 bg-white rounded-full shadow-sm">
+                        <i data-lucide="bell" class="w-6 h-6 text-gray-700"></i>
+                        <span class="absolute top-1 right-1 bg-red-500 w-3 h-3 rounded-full border-2 border-white"></span>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="col-span-2 bg-blue-600 rounded-2xl p-5 text-white shadow-md">
+                        <p class="text-blue-100 text-sm mb-1">Estimasi Pendapatan</p>
+                        <h2 class="text-3xl font-bold">Rp 2.450.000</h2>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex flex-col items-center">
+                        <i data-lucide="star" class="w-7 h-7 text-yellow-400 fill-yellow-400 mb-2"></i>
+                        <h3 class="text-xl font-bold text-gray-800">4.8</h3>
+                        <p class="text-xs text-gray-500">Rating Rata-rata</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 flex flex-col items-center">
+                        <i data-lucide="check-circle-2" class="w-7 h-7 text-green-500 mb-2"></i>
+                        <h3 class="text-xl font-bold text-gray-800">12</h3>
+                        <p class="text-xs text-gray-500">Job Selesai</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-3">Pekerjaan Aktif</h3>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs font-semibold bg-blue-100 text-blue-600 px-2 py-1 rounded-md">Campaign</span>
+                            <h4 class="font-bold text-gray-800 mt-2">Review Skincare XYZ</h4>
+                            <p class="text-xs text-red-500 mt-1 font-medium">Deadline: Besok, 12:00 WIB</p>
+                        </div>
+                        <button onclick="openSubPage('subpage-submit-bukti')" class="bg-blue-600 text-white text-xs px-3 py-2 rounded-lg font-medium">
+                            Submit Bukti
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Halaman Job Pool -->
+            <div id="page-jobPool" class="p-4 space-y-4 hidden main-page">
+                <div class="mt-2">
+                    <h1 class="text-2xl font-bold text-gray-800 mb-4">Job Pool 🎯</h1>
+                    <div class="relative">
+                        <i data-lucide="search" class="absolute left-3 top-3.5 w-5 h-5 text-gray-400"></i>
+                        <input type="text" placeholder="Cari campaign UMKM..." class="w-full bg-white border border-gray-200 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-600">
+                    </div>
+                </div>
+                <div class="flex space-x-2 overflow-x-auto pb-2 scrollbar-hide">
+                    <span class="px-4 py-1.5 bg-blue-600 text-white text-sm rounded-full whitespace-nowrap cursor-pointer">Terbaru</span>
+                    <span class="px-4 py-1.5 bg-white border border-gray-200 text-gray-600 text-sm rounded-full whitespace-nowrap cursor-pointer">Harga Tertinggi</span>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 cursor-pointer" onclick="openSubPage('subpage-detail-job')">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-semibold bg-pink-100 text-pink-600 px-2 py-1 rounded-md">Kecantikan</span>
+                            <span class="text-xs text-gray-500">2/10 Tersisa</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 text-lg">Lipmatte Halal GlowUp</h3>
+                        <div class="flex justify-between items-center mt-3">
+                            <div><p class="text-xs text-gray-500">Harga per 1K Views</p><p class="font-bold text-blue-600">Rp 50.000</p></div>
+                            <i data-lucide="chevron-right" class="text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Halaman Pekerjaan Aktif -->
+            <div id="page-pekerjaan" class="p-4 space-y-4 hidden main-page">
+                <h1 class="text-2xl font-bold text-gray-800 mt-2 mb-4">Pekerjaan Saya</h1>
+                <div class="flex space-x-2 border-b border-gray-200 pb-2">
+                    <button class="text-blue-600 font-medium text-sm border-b-2 border-blue-600 pb-1">Sedang Dikerjakan</button>
+                    <button class="text-gray-500 font-medium text-sm pb-1">Menunggu Validasi</button>
+                    <button class="text-gray-500 font-medium text-sm pb-1">Selesai</button>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                    <div class="flex justify-between items-start">
+                        <h4 class="font-bold text-gray-800">Video Tiktok Kopi Susu</h4>
+                        <span class="bg-yellow-100 text-yellow-700 text-[10px] px-2 py-1 rounded-full font-bold">In Progress</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Deadline: 20 Okt 2023</p>
+                    <button onclick="openSubPage('subpage-submit-bukti')" class="w-full mt-4 bg-blue-50 text-blue-600 py-2 rounded-lg text-sm font-bold border border-blue-100">
+                        Submit Bukti Tayang
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 6. Halaman Saldo / Keuangan -->
+            <div id="page-saldo" class="p-4 space-y-4 hidden main-page">
+                <h1 class="text-2xl font-bold text-gray-800 mt-2 mb-4">Keuangan</h1>
+                
+                <div class="bg-gray-800 rounded-2xl p-5 text-white shadow-md relative overflow-hidden">
+                    <div class="relative z-10">
+                        <p class="text-gray-300 text-sm mb-1">Saldo Tersedia</p>
+                        <h2 class="text-3xl font-bold mb-4">Rp 1.200.000</h2>
+                        <button onclick="toggleModal('modal-withdraw')" class="bg-white text-gray-800 px-4 py-2 rounded-lg text-sm font-bold shadow-sm w-full">
+                            Tarik Dana (Withdraw)
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-orange-50 border border-orange-100 p-4 rounded-xl flex justify-between items-center">
+                    <div>
+                        <p class="text-xs text-orange-600 font-medium">Saldo Tertunda (Escrow)</p>
+                        <p class="text-lg font-bold text-orange-700">Rp 450.000</p>
+                    </div>
+                    <i data-lucide="clock" class="text-orange-400"></i>
+                </div>
+
+                <div class="mt-6">
+                    <h3 class="font-bold text-gray-800 mb-3">Riwayat Transaksi</h3>
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded-lg flex justify-between items-center border border-gray-100">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-green-100 p-2 rounded-full"><i data-lucide="arrow-down-left" class="w-4 h-4 text-green-600"></i></div>
+                                <div><p class="text-sm font-bold">Honor Job XYZ</p><p class="text-[10px] text-gray-500">12 Okt 2023</p></div>
+                            </div>
+                            <span class="text-green-600 font-bold text-sm">+Rp 150.000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. Halaman Profil Kreator -->
+            <div id="page-profil" class="hidden main-page bg-white min-h-full">
+                <div class="h-32 bg-blue-600 relative"></div>
+                <div class="px-4 pb-4 relative">
+                    <img src="https://ui-avatars.com/api/?name=Budi+Kreator&background=random&size=100" class="w-20 h-20 rounded-full border-4 border-white absolute -top-10 shadow-md">
+                    <div class="pt-12">
+                        <h2 class="text-xl font-bold text-gray-800">Budi Kreator</h2>
+                        <p class="text-sm text-gray-500">@budikreator</p>
+                        <p class="text-sm mt-2 text-gray-700">Tech & Gadget Reviewer. Siap membantu UMKM tumbuh! 🚀</p>
+                    </div>
+                    
+                    <div class="flex gap-2 mt-4">
+                        <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs flex items-center gap-1"><i data-lucide="instagram" class="w-3 h-3"></i> TikTok</span>
+                        <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs flex items-center gap-1"><i data-lucide="youtube" class="w-3 h-3"></i> YouTube</span>
+                    </div>
+
+                    <div class="mt-8 space-y-2">
+                        <button onclick="openSubPage('subpage-ratecard')" class="w-full flex justify-between items-center p-4 bg-gray-50 rounded-xl border border-gray-100">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="tag" class="text-blue-600"></i>
+                                <span class="font-medium text-gray-800">Kelola Rate Card</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="text-gray-400"></i>
+                        </button>
+                        <button class="w-full flex justify-between items-center p-4 bg-gray-50 rounded-xl border border-gray-100">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="settings" class="text-gray-600"></i>
+                                <span class="font-medium text-gray-800">Pengaturan Akun</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="text-gray-400"></i>
+                        </button>
+                        <button class="w-full flex justify-between items-center p-4 bg-red-50 rounded-xl border border-red-100 mt-4">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="log-out" class="text-red-600"></i>
+                                <span class="font-medium text-red-600">Keluar (Logout)</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bg-white border-t border-gray-200 absolute bottom-0 w-full flex justify-around items-center px-2 py-3 z-10" id="bottom-nav">
+            <button onclick="switchTab('home')" class="nav-btn flex flex-col items-center w-full space-y-1 text-blue-600" data-target="home">
+                <i data-lucide="home" class="w-6 h-6"></i><span class="text-[10px] font-medium">Beranda</span>
+            </button>
+            <button onclick="switchTab('jobPool')" class="nav-btn flex flex-col items-center w-full space-y-1 text-gray-400" data-target="jobPool">
+                <i data-lucide="search" class="w-6 h-6"></i><span class="text-[10px] font-medium">Job Pool</span>
+            </button>
+            <button onclick="switchTab('pekerjaan')" class="nav-btn flex flex-col items-center w-full space-y-1 text-gray-400" data-target="pekerjaan">
+                <i data-lucide="clipboard-list" class="w-6 h-6"></i><span class="text-[10px] font-medium">Pekerjaan</span>
+            </button>
+            <button onclick="switchTab('saldo')" class="nav-btn flex flex-col items-center w-full space-y-1 text-gray-400" data-target="saldo">
+                <i data-lucide="wallet" class="w-6 h-6"></i><span class="text-[10px] font-medium">Saldo</span>
+            </button>
+            <button onclick="switchTab('profil')" class="nav-btn flex flex-col items-center w-full space-y-1 text-gray-400" data-target="profil">
+                <i data-lucide="user" class="w-6 h-6"></i><span class="text-[10px] font-medium">Profil</span>
+            </button>
+        </nav>
+
+        <!-- ================= SUB PAGES (OVERLAYS) ================= -->
+        
+        <!-- 3. Detail Job Pool -->
+        <div id="subpage-detail-job" class="absolute inset-0 bg-white z-20 hidden flex-col slide-in">
+            <div class="flex items-center gap-3 p-4 border-b border-gray-100">
+                <button onclick="closeSubPage('subpage-detail-job')"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
+                <h2 class="font-bold text-lg">Detail Campaign</h2>
+            </div>
+            <div class="p-4 flex-1 overflow-y-auto pb-24">
+                <h1 class="text-2xl font-bold text-gray-800 mb-2">Lipmatte Halal GlowUp</h1>
+                <div class="flex gap-2 mb-6">
+                    <span class="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-md font-bold">Rp 50.000 / 1K Views</span>
+                    <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-md">Sisa 2 Kuota</span>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-2">Deskripsi & Brief</h3>
+                <p class="text-sm text-gray-600 mb-4 leading-relaxed">Buat video review berdurasi 30-60 detik. Tunjukkan tekstur lipmatte dan hasil pemakaian di bibir. Jangan lupa sebutkan keunggulan "Transferproof" dan "Halal".</p>
+                <button class="flex items-center justify-center gap-2 w-full border-2 border-gray-200 py-3 rounded-xl font-medium text-gray-700 mb-4">
+                    <i data-lucide="image" class="w-5 h-5"></i> Lihat Aset Produk
+                </button>
+            </div>
+            <div class="absolute bottom-0 w-full p-4 bg-white border-t border-gray-100">
+                <button class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl">Klaim Job Ini</button>
+            </div>
+        </div>
+
+        <!-- 5. Submit Bukti Tayang -->
+        <div id="subpage-submit-bukti" class="absolute inset-0 bg-white z-20 hidden flex-col slide-in">
+            <div class="flex items-center gap-3 p-4 border-b border-gray-100">
+                <button onclick="closeSubPage('subpage-submit-bukti')"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
+                <h2 class="font-bold text-lg">Submit Bukti Tayang</h2>
+            </div>
+            <div class="p-4 flex-1 overflow-y-auto">
+                <div class="bg-blue-50 p-3 rounded-lg mb-6 border border-blue-100">
+                    <p class="text-xs text-blue-600 font-bold mb-1">Campaign</p>
+                    <p class="font-medium text-gray-800">Review Skincare XYZ</p>
+                </div>
+                <label class="block text-sm font-bold text-gray-700 mb-2">URL Video Publik</label>
+                <input type="text" placeholder="https://vt.tiktok.com/..." class="w-full border border-gray-300 rounded-lg p-3 mb-4 focus:ring-2 focus:ring-blue-600 outline-none text-sm">
+                
+                <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center text-gray-500 mb-6">
+                    <i data-lucide="upload-cloud" class="w-8 h-8 mb-2"></i>
+                    <p class="text-xs">Opsional: Unggah Screenshot Analitik</p>
+                </div>
+
+                <button class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl">Kirim Bukti Tayang</button>
+            </div>
+        </div>
+
+        <!-- 8. Kelola Rate Card -->
+        <div id="subpage-ratecard" class="absolute inset-0 bg-gray-50 z-20 hidden flex-col slide-in">
+            <div class="flex items-center gap-3 p-4 bg-white border-b border-gray-100">
+                <button onclick="closeSubPage('subpage-ratecard')"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
+                <div>
+                    <h2 class="font-bold text-lg">Kelola Rate Card</h2>
+                    <p class="text-[10px] text-gray-500">Maksimal 3 Paket</p>
+                </div>
+            </div>
+            <div class="p-4 space-y-4">
+                <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-bold text-gray-800">Video TikTok Review (60s)</h3>
+                            <p class="font-bold text-blue-600 mt-1">Rp 300.000</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="p-1.5 bg-gray-100 text-gray-600 rounded-md"><i data-lucide="edit-2" class="w-4 h-4"></i></button>
+                            <button class="p-1.5 bg-red-100 text-red-600 rounded-md"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-3 line-clamp-2">Termasuk ide konsep, shooting, dan editing dasar. Revisi maksimal 1 kali.</p>
+                </div>
+
+                <button class="w-full border-2 border-dashed border-blue-300 text-blue-600 font-bold py-4 rounded-xl bg-blue-50 flex items-center justify-center gap-2">
+                    <i data-lucide="plus" class="w-5 h-5"></i> Tambah Paket Baru
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= MODALS ================= -->
+        <!-- Modal Tarik Dana -->
+        <div id="modal-withdraw" class="absolute inset-0 bg-black bg-opacity-50 z-30 hidden items-end justify-center">
+            <div class="bg-white w-full rounded-t-2xl p-6 slide-in" style="animation-name: slideUp;">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="font-bold text-xl">Tarik Dana</h2>
+                    <button onclick="toggleModal('modal-withdraw')"><i data-lucide="x" class="text-gray-500"></i></button>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Nominal Penarikan</label>
+                        <input type="number" placeholder="Rp 0" class="w-full border border-gray-300 rounded-lg p-3 text-lg font-bold outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Pilih Bank</label>
+                        <select class="w-full border border-gray-300 rounded-lg p-3 outline-none bg-white">
+                            <option>BCA</option>
+                            <option>Mandiri</option>
+                            <option>BRI</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 mb-1">Nomor Rekening</label>
+                        <input type="text" placeholder="Masukkan no. rekening" class="w-full border border-gray-300 rounded-lg p-3 outline-none">
+                    </div>
+                    <button onclick="toggleModal('modal-withdraw')" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl mt-4">Proses Penarikan</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script Interaksi -->
+    <script>
+        // Render Icons
+        lucide.createIcons();
+
+        // Navigasi Bottom Menu (Pages Utama 1, 2, 4, 6, 7)
+        function switchTab(tabId) {
+            document.querySelectorAll('.main-page').forEach(page => page.classList.add('hidden'));
+            document.getElementById('page-' + tabId).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-blue-600');
+                btn.classList.add('text-gray-400');
+            });
+            const activeBtn = document.querySelector(`.nav-btn[data-target="${tabId}"]`);
+            if(activeBtn) {
+                activeBtn.classList.remove('text-gray-400');
+                activeBtn.classList.add('text-blue-600');
+            }
+        }
+
+        // Buka Sub-Page (Pages 3, 5, 8)
+        function openSubPage(pageId) {
+            document.getElementById(pageId).classList.remove('hidden');
+            document.getElementById(pageId).classList.add('flex');
+        }
+
+        // Tutup Sub-Page
+        function closeSubPage(pageId) {
+            document.getElementById(pageId).classList.add('hidden');
+            document.getElementById(pageId).classList.remove('flex');
+        }
+
+        // Toggle Modal
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            } else {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+    </script>
+    <style>
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+    </style>
+</body>
+</html>
